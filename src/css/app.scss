@@ -2,8 +2,8 @@ body, html {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #000;
+    background: #eee;
   }
 
   .pointer {
@@ -14,6 +14,10 @@ body, html {
     text-decoration: none;
     color: inherit;
     outline: none;
+  }
+  p{
+      margin: 0;
+      padding: 0;
   }
 
 
@@ -28,22 +32,75 @@ body, html {
     flex-direction: column;
 }
 
-
-
-  #nav {
-    padding: 1em;
-  
-    a {
-      font-weight: bold;
-      color: darkgray;
-      margin: 0 .5em;
-  
-      &.router-link-exact-active {
-        color: #000;
-        text-decoration: underline;
-      }
+.logo{
+    span{
+        width: 80px;
+        height: 80px;
+        background: fuchsia;
+        border-radius: 50%;
+        display: block;
     }
-  }
+    h1{
+        font-size: 3em;
+        text-transform: uppercase;
+    }
+}
+.menu{
+    list-style-type: none;
+    &-item{
+        padding: .5em;
+        margin-left: 1.5em;
+        background: grey;
+    }
+}
+
+.index-form{
+    width: 100%;
+    background: white;
+    border: 1px solid black;
+    &>*{
+        margin: 0 16px;
+    }
+    .numeric {
+        max-width: 120px;
+      }
+      .checkdate {
+        max-width: 200px;
+      }
+}
+.index-text{
+    p{
+        font-size: 18px;
+        &.header{
+            font-size: 24px;
+            font-weight: 600;
+            &>span{
+                color: fuchsia;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.results{
+    .sidebar{
+        padding: .5em;
+        border: 1px solid #000;
+        p{
+            font-size: 18px;
+            &.header{
+                font-size: 24px;
+                font-weight: 600;
+            }
+        }
+    }
+    .filters {
+        padding: .5em;
+        // border: 1px solid #000;
+      max-height: 400px;
+      overflow-y: scroll;
+    }
+}
 
 
 @media (max-width: 1919.9px) {
@@ -85,10 +142,5 @@ body, html {
 @media (max-width: 375px) {
     .container{
         max-width: 100%;
-    }    
-    #home {
-        .home-todos {
-            padding: 1em 1em 0 1em;
-        }
-    }
+    } 
 }
