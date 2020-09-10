@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import Trigger from "../components/Trigger";
-import LazyLoadDirective from "../directives/LazyLoaddirective"
+import Trigger from "../component/Trigger";
+import LazyLoadDirective from "../directive/LazyLoadDirective"
 export default {
   data() {
     return {
