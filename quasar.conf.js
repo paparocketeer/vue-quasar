@@ -47,10 +47,10 @@ module.exports = function (ctx) {
       env: {
         API_DEST: ctx.dev
           ? 'http://localhost:8080/destinations.json'
-          : 'https://prod.api.com',
+          : 'https://vue-quasar.netlify.app/destinations.json',
         API_HOTELS: ctx.dev
         ? 'http://localhost:8080/hotels.json'
-        : 'https://prod.api.com'
+        : 'https://vue-quasar.netlify.app/hotels.json'
       },
 
       // transpile: false,
