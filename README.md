@@ -1,6 +1,10 @@
 # Quasar App (vue-quasar)
 
-A Quasar Framework app
+Quasar(Vue.js) test Travolta app
+
+[Demo](https://vue-quasar.netlify.app/)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/949a2916-ffb5-4d1e-bdbc-3f26a9eac06f/deploy-status)](https://app.netlify.com/sites/vue-quasar/deploys)
 
 ## Install the dependencies
 ```bash
