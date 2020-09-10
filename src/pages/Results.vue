@@ -1,6 +1,6 @@
 <template>
   <div class="results full-width row wrap justify-between">
-    <div class="sidebar col-3">
+    <div class="sidebar col-xs-12 col-sm-4 col-md-3">
       <!-- <p class="header">Filter Box for {{ $route.params.destination }}</p> -->
       <p class="header">Filter Box</p>
       <span>
@@ -10,7 +10,12 @@
       <span>
         Filter by rating:
         <q-list dark>
-          <q-item v-for="star in [5, 4, 3, 2, 1]" tag="label" :key="star" @click="onChange">
+          <q-item
+            v-for="star in [5, 4, 3, 2, 1]"
+            tag="label"
+            :key="star"
+            @click="onChange"
+          >
             <q-item-section avatar>
               <q-checkbox v-model="stars" :val="star" color="purple" />
             </q-item-section>
@@ -29,8 +34,11 @@
         </q-list>
       </span>
     </div>
-    <div v-if="filteredItems.length" class="filters col-8">
-      <div        
+    <div
+      v-if="filteredItems.length"
+      class="filters col-xs-12 col-sm-8 col-md-9"
+    >
+      <div
         v-for="hotel in filteredItems"
         :key="hotel.id"
         class="filters-item row justify-between items-center"
@@ -53,18 +61,18 @@
         <div>
           <q-btn color="purple-13" label="Show Details" />
         </div>
-      </div>      
+      </div>
       <trigger @triggerIntersected="page += 1" />
     </div>
-    <div v-else class="filters col-8">
-        No items found
-      </div>
+    <div v-else class="filters col-xs-12 col-sm-8 col-md-9">
+      No items found
+    </div>
   </div>
 </template>
 
 <script>
 import Trigger from "../component/Trigger";
-import LazyLoadDirective from "../directive/LazyLoadDirective"
+import LazyLoadDirective from "../directive/LazyLoadDirective";
 export default {
   data() {
     return {
@@ -96,10 +104,15 @@ export default {
   computed: {
     filteredItems() {
       return this.hotels
-        .filter(item => (
-          item.name.includes(this.search)
-          && (this.stars.length ? this.stars.includes(Math.ceil(Number.parseFloat(item.hotel_rating))) : true)
-        ))
+        .filter(
+          item =>
+            item.name.includes(this.search) &&
+            (this.stars.length
+              ? this.stars.includes(
+                  Math.ceil(Number.parseFloat(item.hotel_rating))
+                )
+              : true)
+        )
         .slice(0, this.page * this.limit);
     }
   }

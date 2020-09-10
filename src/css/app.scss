@@ -60,14 +60,22 @@ body, html {
     width: 100%;
     background: white;
     border: 1px solid black;
-    &>*{
-        margin: 0 16px;
+    & .q-select, .q-input, .q-btn{
+        margin: 0 20px;
+    }
+    .destination{
+        max-width: 200px; 
+        padding-bottom: 20px;
     }
     .numeric {
         max-width: 120px;
       }
       .checkdate {
         max-width: 200px;
+      }
+      & .q-btn{
+        margin-bottom: 20px;
+        width: 100px;
       }
 }
 .index-text{
@@ -104,13 +112,13 @@ body, html {
         }
     }
     .filters {
-        padding: .5em;
+        padding: 0;
         // border: 1px solid #000;
       max-height: 400px;
       overflow-y: scroll;
       .filters-item{
           border: 1px solid black;
-          margin: .5em;
+          margin: 0 .5em .5em;
           padding: .5em;
           &--text{
               width: 220px;
@@ -146,22 +154,59 @@ body, html {
     .container {
         max-width: 648px;
     }
+    .menu{
+        display: none;
+    }
+    .index-form{   
+        &>*{
+            margin: 0;
+        }     
+        .destination{
+            max-width: unset; 
+            width: 100%;
+        }
+        .numeric {
+            max-width: unset;
+            width: 30%;
+          }
+          .checkdate {
+            max-width: unset;
+            width: 100%;
+          }
+          & .q-btn{
+              width: 100%;
+          }
+          span{
+            justify-content: space-between;
+            width: 100%;
+          }
+    }
+    .filters{
+        button{
+            display: none;
+        }
+    }
 }
 
 @media (max-width: 767.9px) {
     .container {
         max-width: 540px;
     }
+    
 }
 
-@media (max-width: 539.9px) {
+@media (max-width: 599.9px) {
     .container{
         max-width: 360px;
     } 
+    .sidebar{
+        display: none;
+    }
 }
 
 @media (max-width: 375px) {
     .container{
-        max-width: 100%;
-    } 
+        max-width: 95%;
+    }
+    
 }
