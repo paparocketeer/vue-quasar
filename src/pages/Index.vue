@@ -9,8 +9,8 @@
         filled
         v-model="search"
         use-input
-        hide-selected
         fill-input
+        :loading="loading"
         input-debounce="0"
         option-value="id"
         option-label="name"
@@ -91,7 +91,8 @@
         lazy-rules
         :rules="[
           val => (val !== null && val !== '') || 'Please type adults number',
-          val => (val > 0 && val < 10) || 'Adults number should be lower then 10'
+          val => val > 0 || 'Adults number should be more then 0',
+          val => val < 10 || 'Adults number should be lower then 10'
         ]"
       />
 
@@ -105,7 +106,7 @@
         lazy-rules
         :rules="[
           val => (val !== null && val !== '') || 'Please type children number',
-          val => (val > 0 && val < 10) || 'Children number should be lower then 10'
+          val => (val >= 0 && val < 10) || 'Children number should be lower then 10'
         ]"
       />
 
@@ -151,7 +152,8 @@ export default {
       checkinDate: "",
       checkoutDate: "",
       adults: null,
-      children: null
+      children: null,
+      loading: true
     };
   },
   // created() {
@@ -171,20 +173,15 @@ export default {
             this.destinations = json.filter(
               v => v.name.toLowerCase().indexOf(needle) > -1
             );
+            this.loading = false
           });
       });
     },
-    // simulateProgress(number) {
-    //   // we set loading state
-    //   this.loading = true;
-    //   // simulate a delay
-    //   setTimeout(() => {
-    //     // we're done, we reset loading state
-    //     this.loading = false;
-    //   }, 3000);
-    // },
     onSubmit() {
-      this.$router.push({name : "results", params: { destination: this.search.name }})
+      let criteria = [this.search.name, this.checkinDate, this.checkoutDate, this.adults, this.children]
+      localStorage.setItem("criteria", JSON.stringify(criteria));
+      // this.$router.push({name : "results", params: { destination: this.search.name }})
+      this.$router.push({name : "results" })
     },
 
     onReset() {

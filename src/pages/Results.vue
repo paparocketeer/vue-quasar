@@ -1,78 +1,107 @@
 <template>
   <div class="results full-width row wrap justify-between">
-    <!-- <div class="row"> -->
     <div class="sidebar col-3">
-      <p class="header">Filter Box for {{ $route.params.destination }}</p>
+      <!-- <p class="header">Filter Box for {{ $route.params.destination }}</p> -->
+      <p class="header">Filter Box</p>
       <span>
         Filter by hotel name:
-        <q-input outlined v-model="search" />
+        <q-input outlined v-model="search" @input="onChange" />
       </span>
       <span>
         Filter by rating:
-        <q-option-group
-          v-model="group"
-          :options="options"
-          color="green"
-          type="checkbox"
-          label="fgasdg"
-        />
+        <q-list dark>
+          <q-item v-for="star in [5, 4, 3, 2, 1]" tag="label" :key="star" @click="onChange">
+            <q-item-section avatar>
+              <q-checkbox v-model="stars" :val="star" color="purple" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>
+                <q-rating
+                  :value="stars.includes(star) ? star : 0"
+                  :max="star"
+                  size="1.5em"
+                  color="purple-13"
+                  readonly
+                />
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </span>
     </div>
-    <div class="filters col-8">
-      <p v-for="n in 15" :key="n">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil
-        praesentium molestias a adipisci, dolore vitae odit, quidem consequatur
-        optio voluptates asperiores pariatur eos numquam rerum delectus commodi
-        perferendis voluptate?
-      </p>
-
-      <!-- place QPageScroller at end of page -->
-      <q-page-scroller
-        expand
-        position="top"
-        :scroll-offset="150"
-        :offset="[0, 0]"
+    <div v-if="filteredItems.length" class="filters col-8">
+      <div        
+        v-for="hotel in filteredItems"
+        :key="hotel.id"
+        class="filters-item row justify-between items-center"
       >
-        <div
-          class="col cursor-pointer q-pa-sm bg-accent text-white text-center"
-        >
-          Scroll back up...
+        <div v-lazyload class="row justify-center items-center">
+          <img data-url="/hotel.png" alt="" />
+          <div class="filters-item--text">
+            <p>{{ hotel.name }}</p>
+            <q-rating
+              :value="Number.parseFloat(hotel.hotel_rating)"
+              :max="Math.ceil(Number.parseFloat(hotel.hotel_rating))"
+              size="1.5em"
+              color="purple-13"
+              icon-half="star_half"
+              readonly
+            />
+            <p>{{ hotel.address }}</p>
+          </div>
         </div>
-      </q-page-scroller>
+        <div>
+          <q-btn color="purple-13" label="Show Details" />
+        </div>
+      </div>      
+      <trigger @triggerIntersected="page += 1" />
     </div>
-    <!-- </div> -->
+    <div v-else class="filters col-8">
+        No items found
+      </div>
   </div>
 </template>
 
 <script>
+import Trigger from "../components/Trigger";
+import LazyLoadDirective from "../directives/LazyLoaddirective"
 export default {
   data() {
     return {
       hotels: [],
       search: "",
-      group: ["op1"],
-      options: [
-        {
-          label: "Option 1",
-          value: "op1"
-        },
-        {
-          label: "Option 2",
-          value: "op2"
-        },
-        {
-          label: "Option 3",
-          value: "op3"
-        }
-      ]
+      page: 1,
+      limit: 10,
+      stars: []
     };
+  },
+  components: {
+    Trigger
+  },
+  directives: {
+    lazyload: LazyLoadDirective
   },
   created() {
     fetch(process.env.API_HOTELS)
       .then(resp => resp.json())
       .then(json => {
-        this.hotels = json
+        this.hotels = json;
       });
+  },
+  methods: {
+    onChange() {
+      this.page = 1;
+    }
+  },
+  computed: {
+    filteredItems() {
+      return this.hotels
+        .filter(item => (
+          item.name.includes(this.search)
+          && (this.stars.length ? this.stars.includes(Math.ceil(Number.parseFloat(item.hotel_rating))) : true)
+        ))
+        .slice(0, this.page * this.limit);
+    }
   }
 };
 </script>

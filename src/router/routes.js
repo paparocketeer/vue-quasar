@@ -7,11 +7,18 @@ const routes = [
       { path: '', component: () => import('pages/Index.vue') }
     ]
   },
+  // {    
+  //   path: '/results/:destination',
+  //   component: () => import('layouts/MainLayout.vue'),
+  //   children: [
+  //     { name: 'results', path: '/results/:destination', component: () => import('pages/Results.vue') }
+  //   ]
+  // },
   {    
-    path: '/results/:destination',
+    path: '/results',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { name: 'results', path: '/results/:destination', component: () => import('pages/Results.vue') }
+      { name: 'results', path: '/results', component: () => import('pages/Results.vue') }
     ]
   },
 
