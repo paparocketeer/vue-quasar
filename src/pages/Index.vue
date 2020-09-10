@@ -8,10 +8,8 @@
       <q-select
         filled
         v-model="search"
+        behavior="menu"
         use-input
-        fill-input
-        :loading="loading"
-        input-debounce="0"
         option-value="id"
         option-label="name"
         :options="destinations"
